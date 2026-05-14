@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Self‑Checkout Kiosk Prototype</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="kiosk">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">EC</div>
+        <div>
+          <div class="brand-title">Euroopt Self‑Checkout</div>
+          <div class="brand-sub">VIDEO RECORDING IN PROGRESS</div>
+        </div>
+      </div>
+      <div class="status">
+        <span class="pill">Touch UI</span>
+        <span class="pill">Lane 2</span>
+        <span class="pill">Basket: <span id="itemCount">0</span></span>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="left">
+        <h1>Shopping List</h1>
+        <div class="list-header">
+          <span>Item</span>
+          <span>Price</span>
+        </div>
+        <ul id="items" class="items"></ul>
+
+        <div id="empty" class="empty">
+          Scan your first item to begin.
+        </div>
+
+        <div class="actions">
+          <button class="btn secondary" id="editBtn">Edit list</button>
+          <button class="btn ghost" id="removeBtn" disabled>Remove selected</button>
+        </div>
+      </section>
+
+      <section class="right">
+        <div class="scan">
+          <div class="scan-title">Scan next item</div>
+          <div class="scan-sub">Barcode • PLU • Coupon</div>
+          <div class="scan-input">
+            <input id="barcodeInput" type="text" placeholder="Type barcode or PLU" />
+            <button class="btn" id="scanBtn">Scan</button>
+          </div>
+          <div class="quick">
+            <button class="chip" data-plu="4011">Bananas (PLU 4011)</button>
+            <button class="chip" data-plu="94011">Bananas organic</button>
+            <button class="chip" data-plu="3107">Gala Apples</button>
+            <button class="chip" data-plu="4372">Navel Oranges</button>
+          </div>
+        </div>
+
+        <div class="weight">
+          <div class="weight-title">Bagging area</div>
+          <div class="weight-box">
+            <div class="weight-value"><span id="weight">0.00</span> kg</div>
+            <div class="weight-sub">Place scanned items on the platform</div>
+          </div>
+        </div>
+
+        <div class="summary">
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <strong id="subtotal">0.00</strong>
+          </div>
+          <div class="summary-row">
+            <span>Discounts</span>
+            <strong id="discounts">0.00</strong>
+          </div>
+          <div class="summary-row total">
+            <span>Total</span>
+            <strong id="total">0.00</strong>
+          </div>
+        </div>
+
+        <div class="cta">
+          <button class="btn pay" id="payBtn">Proceed to payment →</button>
+          <button class="btn secondary" id="loyaltyBtn">Scan loyalty card</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bottombar">
+      <button class="btn ghost" id="helpBtn">Call assistant</button>
+      <div class="footer-center">
+        <button class="btn ghost" id="langBtn">EN</button>
+        <button class="btn ghost" id="bagsBtn">Bags</button>
+        <button class="btn ghost" id="catalogBtn">Product catalog</button>
+      </div>
+      <button class="btn ghost" id="voidBtn">Void transaction</button>
+    </footer>
+  </div>
+
+  <!-- Modals -->
+  <div class="modal" id="ageModal">
+    <div class="modal-card">
+      <h2>Age‑restricted item</h2>
+      <p>An assistant must verify your age before purchase.</p>
+      <div class="modal-actions">
+        <button class="btn" id="requestCheck">Request check</button>
+        <button class="btn secondary" data-close="ageModal">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="payModal">
+    <div class="modal-card wide">
+      <h2>Payment</h2>
+      <div class="pay-grid">
+        <button class="pay-tile">Card</button>
+        <button class="pay-tile">Cash</button>
+        <button class="pay-tile">Mobile Pay</button>
+        <button class="pay-tile">Gift Card</button>
+      </div>
+      <p class="pay-note">Please follow instructions on the terminal.</p>
+      <div class="modal-actions">
+        <button class="btn" data-close="payModal">Back</button>
+        <button class="btn secondary" id="finishBtn">Finish</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="helpModal">
+    <div class="modal-card">
+      <h2>Assistant requested</h2>
+      <p>Please wait. A staff member is on the way.</p>
+      <div class="modal-actions">
+        <button class="btn" data-close="helpModal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="loyaltyModal">
+    <div class="modal-card">
+      <h2>Loyalty card</h2>
+      <p>Scan your loyalty card or enter phone number.</p>
+      <input class="input" placeholder="+1 (___) ___‑____" />
+      <div class="modal-actions">
+        <button class="btn" data-close="loyaltyModal">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="voidModal">
+    <div class="modal-card">
+      <h2>Void transaction?</h2>
+      <p>This will clear your basket.</p>
+      <div class="modal-actions">
+        <button class="btn secondary" data-close="voidModal">Cancel</button>
+        <button class="btn" id="confirmVoid">Void</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
